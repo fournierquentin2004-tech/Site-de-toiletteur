@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Élégance Animale — Toiletteur Professionnel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#accueil" class="nav-logo">
+                <span class="logo-mark">✦</span>
+                <span class="logo-text">Élégance Animale</span>
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
+                <li><a href="#reservation" class="nav-cta">Réserver</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero" id="accueil">
+        <div class="hero-parallax" id="heroParallax"></div>
+        <div class="hero-bg"></div>
+        <div class="hero-content reveal">
+            <p class="hero-label">Toiletteur Professionnel · Paris</p>
+            <h1 class="hero-title">L'art du soin<br><em>pour votre animal</em></h1>
+            <p class="hero-desc">Une expérience de toilettage d'exception, pensée pour le bien-être et l'élégance de votre compagnon.</p>
+            <div class="hero-actions">
+                <a href="#reservation" class="btn btn-primary">Prendre rendez-vous <span>→</span></a>
+                <a href="#services" class="btn btn-ghost">Nos prestations</a>
+            </div>
+        </div>
+        <div class="hero-scroll-hint">
+            <span>Découvrir</span>
+            <div class="scroll-bar"></div>
+        </div>
+    </section>
+
+    <!-- Bandeau chiffres -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat">
+                    <span class="stat-num" data-target="10" data-prefix="+">+10</span>
+                    <span class="stat-label">Années d'expérience</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="800" data-prefix="+">+800</span>
+                    <span class="stat-label">Clients satisfaits</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="6">6</span>
+                    <span class="stat-label">Prestations exclusives</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-num" data-target="100" data-suffix="%">100%</span>
+                    <span class="stat-label">Produits certifiés bio</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-label">Nos prestations</p>
+                <h2 class="section-title">Des soins <em>sur mesure</em></h2>
+                <p class="section-sub">Chaque animal est unique. Nous adaptons chaque prestation à la morphologie, au pelage et au tempérament de votre compagnon.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L6.5 9.5a7 7 0 1 0 11 0L12 2z"/></svg></div>
+                    <h3>Bain & Séchage</h3>
+                    <p>Shampoing professionnel hypoallergénique, conditionneur nourrissant, séchage soigné et brushing impeccable.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 35€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+                <div class="service-card featured reveal">
+                    <div class="service-badge">Le plus demandé</div>
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg></div>
+                    <h3>Toilettage Complet</h3>
+                    <p>Bain, coupe personnalisée, taille des griffes, nettoyage des oreilles et finition professionnelle.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 65€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+                    <h3>Soin Prestige</h3>
+                    <p>Formule exclusive : bain aromatique, masque hydratant, coupe sculptée et parfum de luxe sélectionné.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 95€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="2" ry="2.5"/><ellipse cx="15" cy="7" rx="2" ry="2.5"/><ellipse cx="5.5" cy="13" rx="1.8" ry="2.2"/><ellipse cx="18.5" cy="13" rx="1.8" ry="2.2"/><ellipse cx="12" cy="18" rx="5" ry="4"/></svg></div>
+                    <h3>Toilettage Félin</h3>
+                    <p>Prestation dédiée aux chats, dans une atmosphère calme et apaisante, par des mains spécialisées.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 50€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5c-2.5-1.5-5.5-1-7 1.5S4.5 9.5 5 11.5c.4 1.5.5 3 .3 4.5-.2 1.5.6 3.2 1.9 3.5 1.3.3 2-.5 2.5-1.5l.8-1.5c.2-.5 1-.5 1.2 0l.8 1.5c.5 1 1.2 1.8 2.5 1.5 1.3-.3 2.1-2 1.9-3.5-.2-1.5-.1-3 .3-4.5.5-2 0-3.5-1-5S14.5 3.5 12 5z"/></svg></div>
+                    <h3>Soins Dentaires</h3>
+                    <p>Brossage des dents professionnel pour une hygiène bucco-dentaire irréprochable et un sourire éclatant.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 20€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+                    <h3>Pelage Sensible</h3>
+                    <p>Formule douce pour peaux sensibles, avec produits biologiques certifiés et sans parfum agressif.</p>
+                    <div class="service-footer">
+                        <span class="service-price">À partir de 45€</span>
+                        <a href="#reservation" class="service-link">Réserver →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Réservation -->
+    <section class="reservation" id="reservation">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-label">Prise de rendez-vous</p>
+                <h2 class="section-title">Réservez votre<br><em>séance de soin</em></h2>
+                <p class="section-sub">Remplissez le formulaire ci-dessous. Nous confirmerons votre rendez-vous sous 24 heures.</p>
+            </div>
+            <form class="reservation-form reveal" id="reservationForm" novalidate>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="prenom">Prénom <span class="req">*</span></label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nom">Nom <span class="req">*</span></label>
+                        <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Adresse email <span class="req">*</span></label>
+                        <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone <span class="opt">(facultatif)</span></label>
+                        <input type="tel" id="telephone" name="telephone" placeholder="06 00 00 00 00">
+                    </div>
+                    <div class="form-group">
+                        <label for="animal">Type d'animal <span class="req">*</span></label>
+                        <select id="animal" name="animal" required>
+                            <option value="" disabled selected>Choisir…</option>
+                            <option value="chien">Chien</option>
+                            <option value="chat">Chat</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="race">Race / Gabarit</label>
+                        <input type="text" id="race" name="race" placeholder="Ex : Golden Retriever, petit…">
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Prestation souhaitée <span class="req">*</span></label>
+                        <select id="service" name="service" required>
+                            <option value="" disabled selected>Choisir…</option>
+                            <option value="bain">Bain & Séchage — dès 35€</option>
+                            <option value="complet">Toilettage Complet — dès 65€</option>
+                            <option value="prestige">Soin Prestige — dès 95€</option>
+                            <option value="felin">Toilettage Félin — dès 50€</option>
+                            <option value="dentaire">Soins Dentaires — dès 20€</option>
+                            <option value="sensible">Pelage Sensible — dès 45€</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date souhaitée <span class="req">*</span></label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group full">
+                        <label for="message">Informations complémentaires <span class="opt">(facultatif)</span></label>
+                        <textarea id="message" name="message" rows="4" placeholder="Allergies, comportement particulier, demandes spécifiques…"></textarea>
+                    </div>
+                </div>
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-primary btn-lg">
+                        Confirmer ma réservation <span>→</span>
+                    </button>
+                    <p class="form-note">* Champs obligatoires. Confirmation par email sous 24h.</p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="testimonials" id="temoignages">
+        <div class="container">
+            <div class="section-header reveal">
+                <p class="section-label">Témoignages</p>
+                <h2 class="section-title">Ce que disent<br><em>nos clients</em></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card reveal">
+                    <div class="quote-mark">"</div>
+                    <p>Mon golden retriever ressort toujours magnifique. L'équipe est attentionnée et professionnelle. Je ne changerai jamais de salon !</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="t-author">
+                        <div class="t-avatar">S</div>
+                        <div class="t-info">
+                            <strong>Sophie Martin</strong>
+                            <span>Cliente depuis 3 ans · Golden Retriever</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="quote-mark">"</div>
+                    <p>Ma chatte est très stressée d'habitude, mais ici elle est parfaitement calme. Le résultat est impeccable, le personnel vraiment à l'écoute.</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="t-author">
+                        <div class="t-avatar">M</div>
+                        <div class="t-info">
+                            <strong>Marc Dubois</strong>
+                            <span>Client depuis 2 ans · Maine Coon</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card reveal">
+                    <div class="quote-mark">"</div>
+                    <p>Le soin prestige vaut vraiment son prix. Mon bichon sent divinement bon et son pelage est d'une douceur incomparable. Un vrai luxe !</p>
+                    <div class="stars">★★★★★</div>
+                    <div class="t-author">
+                        <div class="t-avatar">L</div>
+                        <div class="t-info">
+                            <strong>Laure Petit</strong>
+                            <span>Cliente depuis 4 ans · Bichon Frisé</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de confirmation -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-check">✓</div>
+            <h3>Demande envoyée !</h3>
+            <p>Merci pour votre confiance. Nous vous confirmerons votre rendez-vous par email dans les 24 heures ouvrées.</p>
+            <button class="btn btn-primary" onclick="closeModal()">Parfait !</button>
+        </div>
+    </div>
+
+    <!-- Section Contact -->
+    <section class="contact-section">
+        <div class="contact-inner reveal">
+            <div class="contact-text-col">
+                <p class="section-label">Nous trouver</p>
+                <h2 class="contact-title">Adresse <em>&amp;</em> Contact</h2>
+                <p class="contact-intro">Situés au cœur de Paris, nous vous accueillons dans notre salon pour offrir à votre compagnon les meilleurs soins.</p>
+                <div class="contact-rows">
+                    <div class="contact-row">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.686-7-11.5a7 7 0 1 1 14 0C19 14.314 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+                        </span>
+                        <div>
+                            <strong>12 Rue des Lilas</strong>
+                            <span>Paris 11e, France</span>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.5 0 1 .4 1 1V20c0 .5-.5 1-1 1C10.6 21 3 13.4 3 4.5c0-.6.4-1 1-1H7.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                        </span>
+                        <div>
+                            <strong>01 23 45 67 89</strong>
+                            <span>Lundi – Samedi</span>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 3.5"/></svg>
+                        </span>
+                        <div>
+                            <strong>9h – 19h</strong>
+                            <span>Lundi – Samedi</span>
+                        </div>
+                    </div>
+                    <div class="contact-row">
+                        <span class="contact-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+                        </span>
+                        <div>
+                            <strong>contact@elegance-animale.fr</strong>
+                            <span>Réservations &amp; renseignements</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-map-col">
+                <iframe
+                    src="https://maps.google.com/maps?q=Paris+11eme+arrondissement&z=15&output=embed"
+                    class="contact-map"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Élégance Animale sur Google Maps">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <span class="logo-mark">✦</span>
+                        <span class="logo-text">Élégance Animale</span>
+                    </div>
+                    <p>L'art du toilettage professionnel, au service du bien-être de votre compagnon.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#temoignages">Témoignages</a></li>
+                        <li><a href="#reservation">Réserver</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Prestations</h4>
+                    <ul>
+                        <li><a href="#reservation">Bain & Séchage</a></li>
+                        <li><a href="#reservation">Toilettage Complet</a></li>
+                        <li><a href="#reservation">Soin Prestige</a></li>
+                        <li><a href="#reservation">Toilettage Félin</a></li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <span>© 2026 Élégance Animale. Tous droits réservés.</span>
+                <div class="footer-legal-links">
+                    <a href="mentions-legales.html">Mentions légales</a>
+                    <span>·</span>
+                    <a href="politique-confidentialite.html">Politique de confidentialité</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

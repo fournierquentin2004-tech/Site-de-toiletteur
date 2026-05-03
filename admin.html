@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin · Élégance Animale</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal:        #1A6B5A;
+      --teal-mid:    #2A8A74;
+      --teal-light:  #3DB89A;
+      --teal-bg:     rgba(26,107,90,0.10);
+      --dark:        #0D1B2A;
+      --navy:        #162740;
+      --cream:       #F4EDE4;
+      --white:       #ffffff;
+      --text:        #0D1B2A;
+      --muted:       #8A8C9E;
+      --border:      #E5DDD3;
+      --danger:      #dc3545;
+      --danger-light:#fdf2f3;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== LOGIN ===== */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #050d15 0%, #0D1B2A 55%, #071018 100%);
+    }
+
+    #login-screen::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 30% 50%, rgba(26,107,90,0.12) 0%, transparent 60%),
+        radial-gradient(circle at 75% 25%, rgba(61,184,154,0.06) 0%, transparent 50%);
+    }
+
+    .login-card {
+      position: relative;
+      background: var(--white);
+      border-radius: 20px;
+      padding: 52px 44px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+      text-align: center;
+      animation: fadeUp 0.5s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      color: var(--dark);
+      font-weight: 400;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .login-logo .logo-mark { color: var(--teal); }
+    .login-logo em { font-style: italic; color: var(--teal); }
+
+    .login-subtitle {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3.5px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .login-divider {
+      width: 36px; height: 1.5px;
+      background: var(--teal);
+      margin: 0 auto 28px;
+      border-radius: 2px;
+    }
+
+    .login-label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .login-input {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      letter-spacing: 6px;
+      text-align: center;
+      margin-bottom: 20px;
+      caret-color: transparent;
+    }
+
+    .login-input:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(26,107,90,0.10);
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--dark);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 15px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .login-btn:hover  { background: var(--navy); }
+    .login-btn:active { transform: scale(0.98); }
+
+    .login-error {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--danger);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .login-error.show { opacity: 1; }
+
+    /* ===== DASHBOARD ===== */
+    #dashboard { display: none; min-height: 100vh; }
+    #dashboard.visible { display: block; }
+
+    .admin-header {
+      background: var(--dark);
+      height: 64px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .header-left { display: flex; align-items: center; gap: 14px; }
+
+    .header-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 19px;
+      color: white;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-logo .logo-mark { color: var(--teal-light); }
+    .header-logo em { font-style: italic; color: var(--teal-light); }
+
+    .header-badge {
+      background: rgba(61,184,154,0.12);
+      color: var(--teal-light);
+      font-size: 9px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid rgba(61,184,154,0.22);
+    }
+
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .header-date { color: rgba(255,255,255,0.4); font-size: 13px; }
+
+    .logout-btn {
+      background: rgba(255,255,255,0.07);
+      color: rgba(255,255,255,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 7px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .logout-btn:hover { background: rgba(255,255,255,0.15); }
+
+    .admin-main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 36px 32px;
+    }
+
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 6px;
+      line-height: 1.15;
+    }
+
+    .page-title em { font-style: italic; color: var(--teal); }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 36px;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 26px 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(13,27,42,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--border);
+      border-radius: 4px 0 0 4px;
+    }
+
+    .stat-card.dark::after   { background: var(--dark); }
+    .stat-card.teal::after   { background: var(--teal); }
+    .stat-card.accent::after { background: var(--teal-light); }
+
+    .stat-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 44px;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-card.dark  .stat-value { color: var(--dark); }
+    .stat-card.teal  .stat-value { color: var(--teal); }
+    .stat-card.accent .stat-value { color: var(--teal-mid); }
+
+    .stat-sub { font-size: 12px; color: var(--muted); }
+
+    /* Toolbar */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px 10px 40px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus { border-color: var(--teal); }
+
+    .filter-select {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--white);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    .filter-select:focus { border-color: var(--teal); }
+
+    .toolbar-spacer { flex: 1; }
+
+    .count-badge {
+      background: var(--dark);
+      color: white;
+      font-size: 12px;
+      padding: 7px 16px;
+      border-radius: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Table */
+    .table-wrap {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: 0 2px 14px rgba(13,27,42,0.06);
+    }
+
+    .table-scroll { overflow-x: auto; }
+
+    .bookings-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 920px;
+    }
+
+    .bookings-table thead {
+      background: var(--cream);
+      border-bottom: 1.5px solid var(--border);
+    }
+
+    .bookings-table th {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .bookings-table td {
+      padding: 16px 18px;
+      font-size: 14px;
+      color: var(--text);
+      border-bottom: 1px solid #f0ede8;
+      vertical-align: middle;
+    }
+
+    .bookings-table tbody tr:last-child td { border-bottom: none; }
+    .bookings-table tbody tr:hover td { background: #fdfcfa; }
+
+    .td-date strong { display: block; font-weight: 700; white-space: nowrap; }
+    .td-client strong { display: block; font-weight: 600; }
+
+    .td-contact .phone { font-size: 13px; }
+    .td-contact .mail  { font-size: 12px; color: var(--muted); }
+
+    .animal-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--teal-bg);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      border: 1px solid rgba(26,107,90,0.18);
+    }
+
+    .animal-race {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .service-tag {
+      display: inline-block;
+      background: #EDF7F4;
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      border: 1px solid rgba(26,107,90,0.12);
+    }
+
+    .message-cell {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: default;
+    }
+
+    .delete-btn {
+      background: none;
+      border: 1.5px solid #e8e2d9;
+      color: #b0a898;
+      border-radius: 8px;
+      padding: 7px 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .delete-btn:hover {
+      background: var(--danger-light);
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* Empty */
+    .empty-state {
+      padding: 72px 32px;
+      text-align: center;
+    }
+
+    .empty-icon {
+      width: 64px; height: 64px;
+      background: var(--cream);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      color: var(--muted);
+    }
+
+    .empty-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    .empty-sub { font-size: 14px; color: var(--muted); }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,13,21,0.65);
+      z-index: 500;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: var(--white);
+      border-radius: 18px;
+      padding: 38px 32px;
+      max-width: 380px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 28px 60px rgba(0,0,0,0.3);
+      animation: fadeUp 0.25s ease;
+    }
+
+    .modal-icon {
+      width: 54px; height: 54px;
+      background: var(--danger-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      color: var(--danger);
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .modal-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .modal-actions { display: flex; gap: 10px; }
+
+    .modal-cancel {
+      flex: 1;
+      background: var(--cream);
+      color: var(--text);
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-cancel:hover { background: #ece5db; }
+
+    .modal-confirm {
+      flex: 1;
+      background: var(--danger);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-confirm:hover { background: #b02a37; }
+
+    @media (max-width: 1000px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .admin-main   { padding: 20px 16px; }
+      .admin-header { padding: 0 16px; }
+      .header-date  { display: none; }
+      .stats-grid   { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .stat-value   { font-size: 34px; }
+      #login-screen { padding: 0 20px; }
+      .login-card   { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== LOGIN ===== -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo">
+      <span class="logo-mark">✦</span>
+      Élégance <em>Animale</em>
+    </div>
+    <p class="login-subtitle">Espace administrateur</p>
+    <div class="login-divider"></div>
+    <label class="login-label" for="pwd-input">Mot de passe</label>
+    <input
+      type="password"
+      id="pwd-input"
+      class="login-input"
+      placeholder="••••"
+      autocomplete="current-password"
+      onkeydown="if(event.key==='Enter') tryLogin()"
+    >
+    <button class="login-btn" onclick="tryLogin()">Accéder au tableau de bord</button>
+    <p class="login-error" id="login-error">Mot de passe incorrect. Réessayez.</p>
+  </div>
+</div>
+
+<!-- ===== DASHBOARD ===== -->
+<div id="dashboard">
+
+  <header class="admin-header">
+    <div class="header-left">
+      <span class="header-logo">
+        <span class="logo-mark">✦</span>
+        Élégance <em>Animale</em>
+      </span>
+      <span class="header-badge">Admin</span>
+    </div>
+    <div class="header-right">
+      <span class="header-date" id="header-date"></span>
+      <button class="logout-btn" onclick="logout()">Déconnexion</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <div class="page-title">Tableau de <em>bord</em></div>
+    <p class="page-subtitle" id="page-subtitle">Chargement…</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total réservations</div>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">depuis l'ouverture</div>
+      </div>
+      <div class="stat-card dark">
+        <div class="stat-label">Aujourd'hui</div>
+        <div class="stat-value" id="stat-today">0</div>
+        <div class="stat-sub" id="stat-today-label">—</div>
+      </div>
+      <div class="stat-card teal">
+        <div class="stat-label">À venir</div>
+        <div class="stat-value" id="stat-upcoming">0</div>
+        <div class="stat-sub">rendez-vous futurs</div>
+      </div>
+      <div class="stat-card accent">
+        <div class="stat-label">Cette semaine</div>
+        <div class="stat-value" id="stat-week">0</div>
+        <div class="stat-sub">rendez-vous prévus</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search-wrap">
+        <span class="search-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </span>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Rechercher un client…"
+          oninput="renderTable()"
+        >
+      </div>
+      <select class="filter-select" id="filter-service" onchange="renderTable()">
+        <option value="">Tous les services</option>
+        <option value="bain">Bain &amp; Séchage</option>
+        <option value="complet">Toilettage Complet</option>
+        <option value="prestige">Soin Prestige</option>
+        <option value="felin">Toilettage Félin</option>
+        <option value="dentaire">Soins Dentaires</option>
+        <option value="sensible">Pelage Sensible</option>
+      </select>
+      <select class="filter-select" id="filter-animal" onchange="renderTable()">
+        <option value="">Tous les animaux</option>
+        <option value="chien">Chien</option>
+        <option value="chat">Chat</option>
+        <option value="autre">Autre</option>
+      </select>
+      <div class="toolbar-spacer"></div>
+      <span class="count-badge" id="count-badge">0 réservation</span>
+    </div>
+
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table class="bookings-table">
+          <thead>
+            <tr>
+              <th>Date souhaitée</th>
+              <th>Client</th>
+              <th>Contact</th>
+              <th>Animal</th>
+              <th>Service</th>
+              <th>Message</th>
+              <th>Reçu le</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bookings-tbody"></tbody>
+        </table>
+      </div>
+      <div class="empty-state" id="empty-state" style="display:none;">
+        <div class="empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="28" height="28">
+            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/>
+            <rect x="9" y="3" width="6" height="4" rx="1"/>
+            <line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/>
+          </svg>
+        </div>
+        <div class="empty-title">Aucune réservation</div>
+        <p class="empty-sub">Les réservations de vos clients apparaîtront ici dès le premier envoi.</p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ===== MODAL SUPPRESSION ===== -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+        <polyline points="3 6 5 6 21 6"/>
+        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+        <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+      </svg>
+    </div>
+    <div class="modal-title">Supprimer ce rendez-vous ?</div>
+    <p class="modal-sub" id="modal-sub-text">Cette action est irréversible.</p>
+    <div class="modal-actions">
+      <button class="modal-cancel" onclick="closeModal()">Annuler</button>
+      <button class="modal-confirm" onclick="confirmDelete()">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const PASSWORD = "1234";
+  const LS_KEY   = "elegance_animale_reservations";
+  let pendingDeleteId = null;
+
+  const SERVICE_LABELS = {
+    bain:     "Bain & Séchage",
+    complet:  "Toilettage Complet",
+    prestige: "Soin Prestige",
+    felin:    "Toilettage Félin",
+    dentaire: "Soins Dentaires",
+    sensible: "Pelage Sensible"
+  };
+
+  const ANIMAL_LABELS = { chien: "Chien", chat: "Chat", autre: "Autre" };
+
+  function tryLogin() {
+    const val = document.getElementById("pwd-input").value;
+    const err = document.getElementById("login-error");
+    if (val === PASSWORD) {
+      sessionStorage.setItem("elegance_auth", "1");
+      document.getElementById("login-screen").style.display = "none";
+      document.getElementById("dashboard").classList.add("visible");
+      initDashboard();
+    } else {
+      err.classList.add("show");
+      document.getElementById("pwd-input").value = "";
+      document.getElementById("pwd-input").focus();
+      setTimeout(() => err.classList.remove("show"), 3000);
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem("elegance_auth");
+    location.reload();
+  }
+
+  if (sessionStorage.getItem("elegance_auth") === "1") {
+    document.getElementById("login-screen").style.display = "none";
+    document.getElementById("dashboard").classList.add("visible");
+    document.addEventListener("DOMContentLoaded", initDashboard);
+  }
+
+  function initDashboard() {
+    updateHeaderDate();
+    setInterval(updateHeaderDate, 60000);
+    renderStats();
+    renderTable();
+  }
+
+  function updateHeaderDate() {
+    const now = new Date();
+    const str = now.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+    document.getElementById("header-date").textContent = str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  function getReservations() {
+    return JSON.parse(localStorage.getItem(LS_KEY) || "[]");
+  }
+
+  function getWeekRange() {
+    const now = new Date();
+    const day = now.getDay() || 7;
+    const mon = new Date(now); mon.setDate(now.getDate() - day + 1);
+    const sun = new Date(mon); sun.setDate(mon.getDate() + 6);
+    return { start: mon.toISOString().slice(0, 10), end: sun.toISOString().slice(0, 10) };
+  }
+
+  function renderStats() {
+    const all      = getReservations();
+    const todayStr = new Date().toISOString().slice(0, 10);
+    const week     = getWeekRange();
+
+    document.getElementById("stat-total").textContent    = all.length;
+    document.getElementById("stat-today").textContent    = all.filter(r => r.date === todayStr).length;
+    document.getElementById("stat-upcoming").textContent = all.filter(r => r.date >= todayStr).length;
+    document.getElementById("stat-week").textContent     = all.filter(r => r.date >= week.start && r.date <= week.end).length;
+
+    document.getElementById("stat-today-label").textContent =
+      new Date().toLocaleDateString("fr-FR", { day: "numeric", month: "long" });
+
+    const n = all.length;
+    document.getElementById("page-subtitle").textContent =
+      n > 0 ? `${n} réservation${n > 1 ? "s" : ""} enregistrée${n > 1 ? "s" : ""}` : "Aucune réservation pour le moment";
+  }
+
+  function renderTable() {
+    const all    = getReservations();
+    const search = document.getElementById("search-input").value.toLowerCase();
+    const svc    = document.getElementById("filter-service").value;
+    const ani    = document.getElementById("filter-animal").value;
+
+    const filtered = all.filter(r => {
+      const matchSearch = !search ||
+        (r.prenom    || "").toLowerCase().includes(search) ||
+        (r.nom       || "").toLowerCase().includes(search) ||
+        (r.email     || "").toLowerCase().includes(search) ||
+        (r.telephone || "").toLowerCase().includes(search);
+      return matchSearch && (!svc || r.service === svc) && (!ani || r.animal === ani);
+    }).sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+
+    const tbody    = document.getElementById("bookings-tbody");
+    const empty    = document.getElementById("empty-state");
+    const badge    = document.getElementById("count-badge");
+    const n        = filtered.length;
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    badge.textContent = `${n} réservation${n > 1 ? "s" : ""}`;
+
+    if (n === 0) { tbody.innerHTML = ""; empty.style.display = "block"; return; }
+    empty.style.display = "none";
+
+    tbody.innerHTML = filtered.map(r => {
+      const past     = r.date < todayStr;
+      const rowStyle = past ? ' style="opacity:0.5"' : "";
+      const created  = r.createdAt
+        ? new Date(r.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })
+        : "—";
+      const dateLabel = r.date
+        ? new Date(r.date + "T12:00:00").toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "short", year: "numeric" })
+        : "—";
+      const fullName  = [r.prenom, r.nom].filter(Boolean).join(" ") || "—";
+      const svcLabel  = SERVICE_LABELS[r.service] || r.service || "—";
+      const aniLabel  = ANIMAL_LABELS[r.animal]   || r.animal  || "—";
+
+      return `
+        <tr${rowStyle}>
+          <td class="td-date"><strong>${h(dateLabel)}</strong></td>
+          <td class="td-client"><strong>${h(fullName)}</strong></td>
+          <td class="td-contact">
+            <div class="phone">${h(r.telephone || "—")}</div>
+            <div class="mail">${h(r.email || "—")}</div>
+          </td>
+          <td>
+            <span class="animal-tag">
+              <svg viewBox="0 0 20 20" fill="currentColor" width="12" height="12">
+                <circle cx="5.5" cy="6.5" r="2"/><circle cx="14.5" cy="6.5" r="2"/>
+                <circle cx="3" cy="12" r="1.5"/><circle cx="17" cy="12" r="1.5"/>
+                <ellipse cx="10" cy="15" rx="4" ry="3"/>
+              </svg>
+              ${h(aniLabel)}
+            </span>
+            ${r.race ? `<div class="animal-race">${h(r.race)}</div>` : ""}
+          </td>
+          <td><span class="service-tag">${h(svcLabel)}</span></td>
+          <td>
+            <div class="message-cell" title="${ha(r.message || "")}">
+              ${r.message ? h(r.message) : '<span style="color:#ddd">—</span>'}
+            </div>
+          </td>
+          <td style="font-size:12px;color:var(--muted);white-space:nowrap;">${created}</td>
+          <td>
+            <button class="delete-btn" onclick="askDelete('${r.id}','${ha(fullName)}')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13">
+                <polyline points="3 6 5 6 21 6"/>
+                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/>
+                <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+              </svg>
+              Supprimer
+            </button>
+          </td>
+        </tr>`;
+    }).join("");
+  }
+
+  function askDelete(id, nom) {
+    pendingDeleteId = id;
+    document.getElementById("modal-sub-text").textContent =
+      `Vous allez supprimer le rendez-vous de ${nom}. Cette action est irréversible.`;
+    document.getElementById("delete-modal").classList.add("open");
+  }
+
+  function closeModal() {
+    pendingDeleteId = null;
+    document.getElementById("delete-modal").classList.remove("open");
+  }
+
+  function confirmDelete() {
+    if (!pendingDeleteId) return;
+    localStorage.setItem(LS_KEY, JSON.stringify(getReservations().filter(r => r.id !== pendingDeleteId)));
+    closeModal();
+    renderStats();
+    renderTable();
+  }
+
+  document.getElementById("delete-modal").addEventListener("click", e => {
+    if (e.target === document.getElementById("delete-modal")) closeModal();
+  });
+
+  function h(s) {
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+  function ha(s) {
+    return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+  }
+</script>
+</body>
+</html>
